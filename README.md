@@ -1,1 +1,1 @@
-WELCOME TO coolSchool
+WELCOME TO coolSchool API
