@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+const User = require('./user.model');
 
-const classSchema = new mongoose.Schema({
+const classroomSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
     unique: true
   },
-  teacher: {
+  users: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -18,6 +19,7 @@ const classSchema = new mongoose.Schema({
 }, {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = doc._id;
         delete ret._id;
@@ -27,6 +29,13 @@ const classSchema = new mongoose.Schema({
     } 
 });
 
+classroomSchema.virtual('user', {
+  ref: User.modelName,
+  localField: '_id',
+  foreignField: 'class',
+  options: { sort: { position: -1 } }
+})
 
-const Class = mongoose.model('Class', classSchema);
-module.exports = Class;
+
+const Classroom = mongoose.model('Classroom', classroomSchema);
+module.exports = Classroom;

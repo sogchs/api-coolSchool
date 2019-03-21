@@ -1,29 +1,18 @@
 const mongoose = require('mongoose');
 
-const TYPE = ['Positive', 'Negative']
-
-const scoreSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    enum: TYPE,
-    required: true
-  },
-  reason: {
+const messageSchema = new mongoose.Schema({
+  content: {
     type: String,
     required: true
   },
-  student: {
+  recipient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  scoreNumber: {
-    type: Number,
-    required: true
-  },
-  classroom: {
+  sender: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Classroom',
+    ref: 'User',
     required: true
   }
   
@@ -40,5 +29,5 @@ const scoreSchema = new mongoose.Schema({
 });
 
 
-const Score = mongoose.model('Score', scoreSchema);
-module.exports = Score;
+const Message = mongoose.model('Message', messageSchema);
+module.exports = Message;

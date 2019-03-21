@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const Card = require('../models/card.model');
 
 const columnSchema = new mongoose.Schema({
-  position: {
-    type: Number,
-    required: true,
-    unique: true
-  },
   title: {
     type: String,
+    required: true
+  },
+  classroom:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Classroom',
     required: true
   }  
 }, {
@@ -28,8 +28,7 @@ const columnSchema = new mongoose.Schema({
 columnSchema.virtual('cards', {
   ref: Card.modelName,
   localField: '_id',
-  foreignField: 'column',
-  options: { sort: { position: -1 } }
+  foreignField: 'column'
 })
 
 

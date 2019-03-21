@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Classroom = require('../models/classroom.model');
 
 const SALT_WORK_FACTOR = 10;
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -20,10 +21,8 @@ const userSchema = new mongoose.Schema({
     required: 'Password is required',
     match: [PASSWORD_PATTERN, 'Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.']
   },
-  campus: {
-    type: String,
-    required: 'Campus is required',
-    enum: constants.campus
+  school: {
+    type: String
   },
   name: {
     type: String,
@@ -35,13 +34,15 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['Teacher', 'Student']
+    enum: ['Teacher', 'Student'],
+    required: true,
+    default: 'Teacher'
   }
-  //posiblemente tenga que hacer vitual de las clases que tiene cada usuario
 
 }, {
   timestamps: true,
   toJSON: {
+    virtuals: true,
     transform: (doc, ret) => {
       ret.id = doc._id;
       delete ret._id;
@@ -51,6 +52,13 @@ const userSchema = new mongoose.Schema({
     }
   }
 });
+
+userSchema.virtual('classroom', {
+  ref: Classroom.modelName,
+  localField: '_id',
+  foreignField: 'user',
+  options: { sort: { position: -1 } }
+})
 
 userSchema.pre('save', function (next) {
   const user = this;

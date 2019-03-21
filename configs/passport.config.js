@@ -14,7 +14,7 @@ passport.deserializeUser((id, next) => {
 });
 
 
-passport.use('auth-local', new LocalStrategy({
+passport.use('local-auth', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 }, (email, password, next) => {

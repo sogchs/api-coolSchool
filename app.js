@@ -8,12 +8,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 // ROUTES
-const studentRoutes = require('./routes/student.routes');
-const calendarRoutes = require('./routes/teacher.routes');
-const classRoutes = require('./routes/class.routes');
+const calendarRoutes = require('./routes/calendar.routes');
 const chatRoutes = require('./routes/chat.routes');
+const scoreRoutes = require('./routes/score.routes');
+const markRoutes = require('./routes/mark.routes');
+const classroomRoutes = require('./routes/classroom.routes');
 const columnRoutes = require('./routes/column.routes');
-const cardsRoutes = require('./routes/cards.routes');
+const cardRoutes = require('./routes/card.routes');
 const authRoutes = require('./routes/auth.routes')
 
 
@@ -34,12 +35,13 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/student', studentRoutes);
 app.use('/calendar', calendarRoutes);
-app.use('/class', classRoutes);
 app.use('/chat', chatRoutes);
-app.use('/columns', columnRoutes);
-app.use('/cards', cardsRoutes);
+app.use('/score', scoreRoutes);
+app.use('/mark', markRoutes);
+app.use('/column', columnRoutes);
+app.use('/card', cardRoutes);
+app.use('/classroom', classroomRoutes);
 app.use('/', authRoutes)
 
 app.use((req, res, next) => {

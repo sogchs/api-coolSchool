@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const markSchema = new mongoose.Schema({
-  class: {
+  classroom: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Class',
+    ref: 'Classroom',
     required: true
   },
   student: {

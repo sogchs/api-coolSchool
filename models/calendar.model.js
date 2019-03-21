@@ -1,32 +1,28 @@
 const mongoose = require('mongoose');
 
-const cardSchema = new mongoose.Schema({
+const calendarSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  description: {
-    type: String
+  start: {
+    type: String,
+    required: true
   },
-  attachURL: {
-    type: [String]
+  end: {
+    type: String,
+    required: true
   },
-  dateStart: {
-    type: String
-  },
-  dateFinish: {
-    type: String
-  },
-  accountPay: {
-    type: String
-  },
-  amountPay: {
-    type: String
-  },
-  column: {
+  classroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Column',
     required: true
+  },
+  role: {
+    type: String,
+    enum: ['School', 'Classroom'],
+    required: true,
+    default: 'School'
   }
   
 }, {
@@ -42,5 +38,5 @@ const cardSchema = new mongoose.Schema({
 });
 
 
-const Card = mongoose.model('Card', cardSchema);
-module.exports = Card;
+const Calendar = mongoose.model('Calendar', calendarSchema);
+module.exports = Calendar;
