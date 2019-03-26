@@ -26,7 +26,11 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: 'Your Name and Surname is required'
+    required: 'Your Name is required'
+  },
+  surname: {
+    type: String,
+    required: 'Your Surname is required'
   },
   imageURL: {
     type: String,
@@ -34,9 +38,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['Teacher', 'Student'],
-    required: true,
-    default: 'Teacher'
+    enum: ['teacher', 'student'],
+    required: true
   }
 
 }, {

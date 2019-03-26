@@ -10,7 +10,6 @@ module.exports.register = (req, res, next) => {
       }else {
         return new User(req.body).save()
       }
-       
     })
     .then(user => res.status(201).json(user))
     .catch(next);

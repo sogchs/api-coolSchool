@@ -7,10 +7,14 @@ const classroomSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  users: {
+  teachers: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  students: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   accountPay: {
     type: String
@@ -29,12 +33,12 @@ const classroomSchema = new mongoose.Schema({
     } 
 });
 
-classroomSchema.virtual('user', {
-  ref: User.modelName,
-  localField: '_id',
-  foreignField: 'class',
-  options: { sort: { position: -1 } }
-})
+// classroomSchema.virtual('user', {
+//   ref: User.modelName,
+//   localField: '_id',
+//   foreignField: 'class',
+//   options: { sort: { position: -1 } }
+// })
 
 
 const Classroom = mongoose.model('Classroom', classroomSchema);

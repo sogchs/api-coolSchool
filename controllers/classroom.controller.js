@@ -1,7 +1,7 @@
 const Classroom = require('../models/classroom.model');
 
 module.exports.listClassroom = (req, res, next) => {
-    Classroom.find()
+    Classroom.find({ "teachers" : req.user.id })
         .populate('user')
         .then((classroom) => {res.status(201).json(classroom)})
         .catch(err => next(err))
