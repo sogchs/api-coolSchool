@@ -8,6 +8,7 @@ module.exports.register = (req, res, next) => {
       if (user) {
         throw createError(409, 'User already registered in coolSchool')
       }else {
+
         return new User(req.body).save()
       }
     })
@@ -48,3 +49,17 @@ module.exports.editProfile = (req, res, next) => {
     .then(user => res.status(201).json(user))
     .catch(next)
 }
+
+module.exports.searchUserByEmail = (req, res, next) => {
+  User.findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        return user;
+      } else {
+        throw createError(409, 'User not found')
+      }
+    })
+    .then(user => res.status(201).json(user))
+    .catch(next);
+}
+

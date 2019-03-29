@@ -8,12 +8,12 @@ const classroomSchema = new mongoose.Schema({
     unique: true
   },
   teachers: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'User',
     required: true
   },
   students: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'User'
   },
   accountPay: {

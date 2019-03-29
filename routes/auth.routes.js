@@ -12,4 +12,7 @@ router.get('/logout', auth.logout);
 router.get('/profile', secure.isAuthenticated, auth.getProfile);
 router.put('/profile', secure.isAuthenticated, uploader.single('avatar'), auth.editProfile);
 
+//search user by email
+router.post('/user', secure.isAuthenticated, auth.searchUserByEmail);
+
 module.exports = router;
