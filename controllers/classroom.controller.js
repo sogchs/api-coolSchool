@@ -1,8 +1,9 @@
 const Classroom = require('../models/classroom.model');
+const Checklist = require('../models/checklist.model')
 
 module.exports.listClassroom = (req, res, next) => {
     Classroom.find({ "teachers" : req.user.id })
-        .populate('user')
+        .populate('students')
         .then((classroom) => {res.status(201).json(classroom)})
         .catch(err => next(err))
   }
@@ -17,8 +18,9 @@ module.exports.createClassroom = (req, res, next) => {
 
 module.exports.detailClassroom = (req, res, next) => {
     Classroom.findById(req.params.id)
-        .populate('user')
+        .populate('students')
         .then((classroom) => {
+          console.log( classroom )
             if (!classroom) {
                 throw createError(404, 'Sorry, Classroom not found');
               } else {
@@ -28,16 +30,26 @@ module.exports.detailClassroom = (req, res, next) => {
             .catch(next);
 }
 
+
 module.exports.editClassroom = (req, res, next) => {
-  Classroom.findByIdAndUpdate({ _id: req.params.id }, req.body)
-      .then((classroom) => {
-          if (!classroom) {
-              throw createError(404, 'Sorry, Classroom not found');
-            } else {
-              res.json(classroom);
-            }
-          })
-          .catch(next);
+  const students = req.body.students || [];
+  delete req.body.students;
+
+  Classroom.findByIdAndUpdate(
+      { _id: req.params.id },
+      { 
+        $set: req.body,
+        $addToSet: { students: students } 
+      },
+      { new: true})
+    .then((classroom) => {
+      if (!classroom) {
+        throw createError(404, 'Sorry, Classroom not found');
+      } else {
+        res.json(classroom);
+      }
+    })
+    .catch(next);
 }
 
 module.exports.deleteClassroom = (req, res, next) => {
@@ -50,4 +62,12 @@ module.exports.deleteClassroom = (req, res, next) => {
               }
             })
             .catch(next);        
+}
+
+module.exports.createChecklist = (req, res, next) => {
+  const checklist = new Checklist( req.body );
+
+  checklist.save()
+      .then((checklist) => { res.status(201).json(checklist) })
+      .catch(err => next(err))
 }

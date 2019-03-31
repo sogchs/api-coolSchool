@@ -7,15 +7,15 @@ const classroomSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  teachers: {
-    type: [mongoose.Schema.Types.ObjectId],
+  teachers: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  },
-  students: {
-    type: [mongoose.Schema.Types.ObjectId],
+  }],
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }],
   accountPay: {
     type: String
   }

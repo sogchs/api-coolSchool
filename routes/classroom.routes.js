@@ -10,4 +10,7 @@ router.get('/:id', secure.isAuthenticated, Classroom.detailClassroom);
 router.put('/:id', secure.isAuthenticated, Classroom.editClassroom);
 router.delete('/:id', secure.isAuthenticated, Classroom.deleteClassroom);
 
+// ****** CHECK LIST *******
+router.post('/checklist', secure.isAuthenticated, Classroom.createChecklist);
+
 module.exports = router;

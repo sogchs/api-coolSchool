@@ -1,16 +1,22 @@
 const mongoose = require('mongoose');
 
 const checklistSchema = new mongoose.Schema({
-  assistants: {
-    type: [String], //creo que esto deberia ser un array de Object.id
-    required: true
-  },
-  class: {
+  assistants: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Class',
+    ref: 'User',
+    required: true
+  }],
+  classroom: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Classroom',
     required: true
   },
-  note: {
+  teacher: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  observations: {
     type: String
   }
   
