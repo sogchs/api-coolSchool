@@ -8,7 +8,7 @@ const cardSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  attachURL: {
+  attachURLS: {
     type: [String]
   },
   dateStart: {
@@ -21,6 +21,9 @@ const cardSchema = new mongoose.Schema({
     type: String
   },
   amountPay: {
+    type: String
+  },
+  conceptPay: {
     type: String
   },
   column: {

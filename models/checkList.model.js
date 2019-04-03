@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const checklistSchema = new mongoose.Schema({
-  assistants: [{
+  nonAttendance: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -18,6 +18,10 @@ const checklistSchema = new mongoose.Schema({
   },
   observations: {
     type: String
+  },
+  date: {
+    type: String,
+    required: true
   }
   
 }, {

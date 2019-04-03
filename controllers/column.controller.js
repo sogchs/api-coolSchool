@@ -1,7 +1,7 @@
 const Column = require('../models/column.model');
 
 module.exports.listColumn = (req, res, next) => {
-    Column.find({ "classroom": req.classroom.id }) //deberia tener la clase en Contex API
+    Column.find({ "classroom": req.params.id }) 
         .populate('cards')
         .then((columns) => {res.status(201).json(columns)})
         .catch(err => next(err))

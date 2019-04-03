@@ -1,7 +1,7 @@
 const Card = require('../models/card.model');
 
 module.exports.listCard = (req, res, next) => {
-  Card.find()
+  Card.find({ "column": req.params.id })
       .then((cards) => {res.status(201).json(cards)})
       .catch(err => next(err))
 }
@@ -10,9 +10,9 @@ module.exports.listCard = (req, res, next) => {
 module.exports.createCard = (req, res, next) => {
   const card = new Card(req.body);
 
-  console.log(req.file);
-  if (req.file) {
-    card.attachURL = req.file.secure_url;
+  console.log(req.files);
+  if (req.files) {
+    card.attachURLS = req.files.map(file => file.secure_url);
   }
 
   card.save()

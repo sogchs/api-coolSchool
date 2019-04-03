@@ -1,5 +1,6 @@
 const Classroom = require('../models/classroom.model');
 const Checklist = require('../models/checklist.model')
+const Score = require('../models/score.model')
 
 module.exports.listClassroom = (req, res, next) => {
     Classroom.find({ "teachers" : req.user.id })
@@ -70,4 +71,26 @@ module.exports.createChecklist = (req, res, next) => {
   checklist.save()
       .then((checklist) => { res.status(201).json(checklist) })
       .catch(err => next(err))
+}
+
+module.exports.createScore = (req, res, next) => {
+  const score = new Score( req.body );
+
+  score.save()
+      .then((score) => { res.status(201).json(score) })
+      .catch(err => next(err))
+}
+
+module.exports.getChecklist = (req, res, next) => {
+  const dateToday = new Date().toDateString()
+
+  Checklist.findOne({ "classroom" : req.params.id, "date": dateToday })
+      .then((checklist) => {
+          if (!checklist) {
+              throw createError(404, 'Sorry, don´t have checklist today');
+            } else {
+              res.json(checklist);
+            }
+          })
+          .catch(next);
 }

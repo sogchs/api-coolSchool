@@ -12,5 +12,9 @@ router.delete('/:id', secure.isAuthenticated, Classroom.deleteClassroom);
 
 // ****** CHECK LIST *******
 router.post('/checklist', secure.isAuthenticated, Classroom.createChecklist);
+router.get('/checklist/:id', secure.isAuthenticated, Classroom.getChecklist);
+
+// ****** SCORE *******
+router.post('/score', secure.isAuthenticated, Classroom.createScore);
 
 module.exports = router;

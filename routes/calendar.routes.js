@@ -3,10 +3,10 @@ const router = express.Router();
 const secure = require('../middlewares/secure.mid');
 const calendarController = require('../controllers/calendar.controller');
 
-router.get('/',secure.isAuthenticated, calendarController.listCalendar);
-router.post('/',secure.isAuthenticated, calendarController.createCalendar);
-router.get('/:id', secure.isAuthenticated, calendarController.detailCalendar);
-router.put('/:id', secure.isAuthenticated, calendarController.editCalendar);
-router.delete('/:id', secure.isAuthenticated, calendarController.deleteCalendar);
+router.get('/:id',secure.isAuthenticated, calendarController.listEvent);
+router.post('/',secure.isAuthenticated, calendarController.createEvent);
+router.get('/event/:id', secure.isAuthenticated, calendarController.detailEvent);
+router.put('/:id', secure.isAuthenticated, calendarController.editEvent);
+router.delete('/:id', secure.isAuthenticated, calendarController.deleteEvent);
 
 module.exports = router;

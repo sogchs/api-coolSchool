@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const calendarSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -15,14 +15,16 @@ const calendarSchema = new mongoose.Schema({
   },
   classroom: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Column',
+    ref: 'Classroom',
     required: true
   },
   role: {
     type: String,
-    enum: ['School', 'Classroom'],
-    required: true,
-    default: 'School'
+    enum: ['school', 'classroom'],
+    required: true
+  },
+  color: {
+    type: String
   }
   
 }, {
@@ -38,5 +40,5 @@ const calendarSchema = new mongoose.Schema({
 });
 
 
-const Calendar = mongoose.model('Calendar', calendarSchema);
-module.exports = Calendar;
+const Event = mongoose.model('Event', eventSchema);
+module.exports = Event;

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TYPE = ['Positive', 'Negative']
+const TYPE = ['positive', 'negative']
 
 const scoreSchema = new mongoose.Schema({
   type: {
@@ -12,18 +12,23 @@ const scoreSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  student: {
+  students: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  },
+  }],
   scoreNumber: {
-    type: Number,
+    type: String,
     required: true
   },
   classroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Classroom',
+    required: true
+  },
+  teacher: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   }
   

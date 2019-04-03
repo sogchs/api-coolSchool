@@ -1,34 +1,35 @@
-const Calendar = require('../models/calendar.model');
+const Event = require('../models/event.model');
 
-module.exports.listCalendar = (req, res, next) => {
-  Calendar.find({ "role": "School", "classroom": req.classroom.id })  //revisar esta linea, tiene que listar todos los que sean del role School y los que sean de la clase
-      .then((calendar) => {res.status(201).json(calendar)})
+module.exports.listEvent = (req, res, next) => {
+  //Event.find({ "classroom": req.params.id }) 
+    Event.find({$or: [{"classroom": req.params.id}, {"role": "school"}]})
+      .then((event) => {res.status(201).json(event)})
       .catch(err => next(err))
 }
 
 
-module.exports.createCalendar = (req, res, next) => {
-  const calendar = new Calendar(req.body);
+module.exports.createEvent = (req, res, next) => {
+  const event = new Event(req.body);
 
-  calendar.save()
-    .then(calendar => res.status(201).json(calendar))
+  event.save()
+    .then(event => res.status(201).json(event))
     .catch(next);
 }
 
-module.exports.detailCalendar = (req, res, next) => {
-  Calendar.findById(req.params.id)
-      .then((calendar) => {res.status(201).json(calendar)})
+module.exports.detailEvent = (req, res, next) => {
+  Event.findById(req.params.id)
+      .then((event) => {res.status(201).json(event)})
       .catch(err => next(err))
 }
 
-module.exports.editCalendar = (req, res, next) => {
-  Calendar.findByIdAndUpdate({ _id: req.params.id }, req.body)
-      .then((calendar) => {res.status(201).json(calendar)})
+module.exports.editEvent = (req, res, next) => {
+  Event.findByIdAndUpdate({ _id: req.params.id }, req.body)
+      .then((event) => {res.status(201).json(event)})
       .catch(err => next(err))
 }
 
-module.exports.deleteCalendar = (req, res, next) => {
-  Calendar.findByIdAndDelete({ _id: req.params.id })
-      .then((calendar) => {res.status(204).json(calendar)})
+module.exports.deleteEvent = (req, res, next) => {
+  Event.findByIdAndDelete({ _id: req.params.id })
+      .then((event) => {res.status(204).json(event)})
       .catch(err => next(err))
 }
