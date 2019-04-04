@@ -5,7 +5,7 @@ const chatController = require('../controllers/chat.controller');
 
 
 
-router.get('/',secure.isAuthenticated, chatController.conversation);
+router.get('/:localUser/:otherUser',secure.isAuthenticated, chatController.listMessages);
 router.post('/', secure.isAuthenticated, chatController.createMessage);
 
 module.exports = router;

@@ -1,7 +1,12 @@
 const Message = require('../models/message.model');
 
-module.exports.conversation = (req, res, next) => {
-  Message.find()
+module.exports.listMessages = (req, res, next) => {
+  Message.find({
+    $or: [
+      {recipient: req.params.localUser, sender: req.params.otherUser}, 
+      {sender: req.params.localUser, recipient: req.params.otherUser}
+    ]
+  })
       .then((message) => {res.status(201).json(message)})
       .catch(err => next(err))
 }
