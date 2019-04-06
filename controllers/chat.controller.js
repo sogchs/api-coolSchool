@@ -19,3 +19,11 @@ module.exports.createMessage = (req, res, next) => {
     .then(message => res.status(201).json(message))
     .catch(next);
 }
+
+module.exports.listRead = (req, res, next) => {
+  Message.find({
+    classroom: req.params.id
+  })
+      .then((message) => {res.status(201).json(message)})
+      .catch(err => next(err))
+}

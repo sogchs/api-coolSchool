@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 // ROUTES
+const groupRoutes = require('./routes/group.routes');
 const calendarRoutes = require('./routes/calendar.routes');
 const chatRoutes = require('./routes/chat.routes');
 const scoreRoutes = require('./routes/score.routes');
@@ -35,6 +36,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/group', groupRoutes);
 app.use('/calendar', calendarRoutes);
 app.use('/chat', chatRoutes);
 app.use('/score', scoreRoutes);
