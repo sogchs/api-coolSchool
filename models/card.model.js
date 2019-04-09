@@ -8,9 +8,9 @@ const cardSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  attachURLS: {
-    type: [String]
-  },
+  attachURLS: [{
+    type: String
+  }],
   dateStart: {
     type: String
   },

@@ -12,9 +12,10 @@ cloudinary.config({
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: 'coolSchool',
-  allowFormats: ['jpg', 'png', 'pdf', 'doc', 'mp3', 'mp4', 'h264', 'mov', 'avi', 'mkv'],
+  allowFormats: ['jpg', 'png'],
   filename: (req, file, next) => {
     next(null, `${Date.now()}${file.originalname}`)
+
   }
 })
 

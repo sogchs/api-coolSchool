@@ -39,15 +39,11 @@ module.exports.getProfile = (req, res, next) => {
 }
 
 module.exports.editProfile = (req, res, next) => {
-  delete req.body.email; //asi no modificamos el email
+  //delete req.body.email; 
   
-  const user = req.user;
-  Object.keys(req.body).forEach(prop => user[prop] = req.body[prop]);
-  if (req.file) user.avatarURL = req.file.secure_url;
-  
-  user.save()
+  User.findByIdAndUpdate({ _id: req.params.id }, req.body)
     .then(user => res.status(201).json(user))
-    .catch(next)
+    .catch(next);
 }
 
 module.exports.searchUserByEmail = (req, res, next) => {

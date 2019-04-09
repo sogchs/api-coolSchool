@@ -13,6 +13,7 @@ module.exports.createCard = (req, res, next) => {
   console.log(req.files);
   if (req.files) {
     card.attachURLS = req.files.map(file => file.secure_url);
+    //images: req.files ? req.files.map(file => file.secure_url) : ''
   }
 
   card.save()

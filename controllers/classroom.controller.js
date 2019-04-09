@@ -1,6 +1,7 @@
 const Classroom = require('../models/classroom.model');
 const Checklist = require('../models/checklist.model')
 const Score = require('../models/score.model')
+const User = require('../models/user.model')
 
 module.exports.listClassroom = (req, res, next) => {
     Classroom.find({ "teachers" : req.user.id })
@@ -93,4 +94,46 @@ module.exports.getChecklist = (req, res, next) => {
             }
           })
           .catch(next);
+}
+
+// ***** DETAIL STUDENT *******
+
+module.exports.detailStudent = (req, res, next) => {
+
+  User.findOne({ _id: req.params.id })
+      .then((student) => {
+          if (!student) {
+              throw createError(404, 'Sorry, don´t found this student');
+            } else {
+              res.json(student);
+            }
+          })
+          .catch(next);
+}
+
+module.exports.listScore = (req, res, next) => {
+  Score.find({ "students" : req.params.id })
+      .then((score) => {res.status(201).json(score)})
+      .catch(err => next(err))
+}
+
+module.exports.listChecklist = (req, res, next) => {
+  Checklist.find({ "nonAttendance" : req.params.id })
+      .then((checklist) => {res.status(201).json(checklist)})
+      .catch(err => next(err))
+}
+
+module.exports.editTotalClassroom = (req, res, next) => {
+  const students = req.body.students || []
+
+  Classroom.findByIdAndUpdate(
+      { _id: req.params.id }, req.body)
+    .then((classroom) => {
+      if (!classroom) {
+        throw createError(404, 'Sorry, Classroom not found');
+      } else {
+        res.json(classroom);
+      }
+    })
+    .catch(next);
 }
