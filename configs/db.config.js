@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const DB_NAME = 'coolSchool-api'
-const MONGODB_URI = `mongodb://localhost:27017/${DB_NAME}`;
+//const DB_NAME = 'coolSchool-api'
+//const MONGODB_URI = `mongodb://localhost:27017/${DB_NAME}`;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
     .then(() => {
