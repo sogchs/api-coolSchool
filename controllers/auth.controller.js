@@ -52,7 +52,7 @@ module.exports.searchUserByEmail = (req, res, next) => {
       if (user) {
         return user;
       } else {
-        throw createError(409, 'User not found')
+        throw createError(409, 'Sorry, this user is not "cool"')
       }
     })
     .then(user => res.status(201).json(user))

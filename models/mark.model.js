@@ -11,11 +11,16 @@ const markSchema = new mongoose.Schema({
     ref: 'Student',
     required: true
   },
+  teacher: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher',
+    required: true
+  },
   title: {
     type: String,
     required: true
   },
-  mark: {
+  markNumber: {
     type: Number,
     required: true
   }

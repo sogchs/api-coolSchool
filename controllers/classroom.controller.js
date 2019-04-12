@@ -4,8 +4,9 @@ const Score = require('../models/score.model')
 const User = require('../models/user.model')
 
 module.exports.listClassroom = (req, res, next) => {
-    Classroom.find({ "teachers" : req.user.id })
+    Classroom.find({$or: [ { "teachers": req.user.id }, { "students": req.user.id}]})
         .populate('students')
+        .populate('teachers')
         .then((classroom) => {res.status(201).json(classroom)})
         .catch(err => next(err))
   }
