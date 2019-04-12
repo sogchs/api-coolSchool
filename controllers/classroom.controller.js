@@ -1,5 +1,5 @@
 const Classroom = require('../models/classroom.model');
-const Checklist = require('../models/checklist.model')
+const Checklist = require('../models/checklist.model'); 
 const Score = require('../models/score.model')
 const User = require('../models/user.model')
 
