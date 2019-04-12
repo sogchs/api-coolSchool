@@ -7,7 +7,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^2.0.1",
     "cloudinary": "^1.13.2",
     "connect-mongo": "^2.0.3",
     "cookie-parser": "~1.4.3",
