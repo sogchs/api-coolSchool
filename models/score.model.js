@@ -18,7 +18,7 @@ const scoreSchema = new mongoose.Schema({
     required: true
   }],
   scoreNumber: {
-    type: String,
+    type: Number,
     required: true
   },
   classroom: {
